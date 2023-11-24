@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "uart.h"
+#include "core/uart.h"
 
 #define LED_PORT (GPIOA)
 #define LED_PIN (GPIO5)

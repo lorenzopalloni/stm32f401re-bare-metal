@@ -1,19 +1,26 @@
+# Be silent per default, but 'make V=1' will show all compiler calls.
+ifneq ($(V),1)
+Q := @
+endif
+
 # Useful variables
-INC_DIR 		= inc
-SRC_DIR         = src
 DEVICE          = stm32f401re
 OPENCM3_DIR     = ../libopencm3
+INC_DIR 		= inc
+SRC_DIR         = src
+SHARED_INC_DIR  = ../shared/inc
+SHARED_SRC_DIR  = ../shared/src
 
 # Source files
 OBJS            += ${SRC_DIR}/firmware.o
-OBJS 			+= ${SRC_DIR}/uart.o
+OBJS 			+= ${SHARED_SRC_DIR}/core/uart.o
+OBJS 			+= ${SHARED_SRC_DIR}/core/system.o
 
 # C Flags
 CFLAGS          += -Os -ggdb3
 
 # C++ Flags
-# INCS			+= -I$(OPENCM3_DIR)/include
-INCS			+= -I$(INC_DIR)
+INCS			+= -I$(INC_DIR) -I$(SHARED_INC_DIR)
 CPPFLAGS		+= -MD
 CPPFLAGS 		+= $(INCS)
 

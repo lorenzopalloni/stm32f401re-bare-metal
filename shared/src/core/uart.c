@@ -1,4 +1,4 @@
-#include "uart.h"
+#include "core/uart.h"
 
 #include <libopencm3/cm3/nvic.h>
 #include <libopencm3/stm32/rcc.h>
