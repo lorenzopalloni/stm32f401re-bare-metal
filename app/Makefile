@@ -36,7 +36,7 @@ include $(OPENCM3_DIR)/mk/gcc-config.mk
 all: binary.elf binary.hex
 
 clean:
-	$(Q)$(RM) -rf binary.* $(SRC_DIR)/*.o $(SRC_DIR)/*.d generated.*
+	$(Q)$(RM) -rf binary.* $(SRC_DIR)/*.o $(SRC_DIR)/*.d generated.* $(SHARED_SRC_DIR)/*.o $(SHARED_SRC_DIR)/*.d
 
 include $(OPENCM3_DIR)/mk/genlink-rules.mk
 include $(OPENCM3_DIR)/mk/gcc-rules.mk
