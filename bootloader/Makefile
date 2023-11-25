@@ -8,13 +8,12 @@ Q := @
 endif
 
 # Useful variables
-TARGET_NAME     = firmware
+TARGET_NAME     = bootloader
 OPENCM3_DIR     = ../libopencm3
 INC_DIR 		= inc
 SRC_DIR         = src
 SHARED_INC_DIR  = ../shared/inc
 SHARED_SRC_DIR  = ../shared/src
-BOOTLOADER_DIR  = ../bootloader
 
 LIBNAME			= opencm3_stm32f4
 DEFS			+= -DSTM32F4
@@ -33,8 +32,6 @@ DEFS			+= -I$(SHARED_INC_DIR)
 
 # Source files
 OBJS			+= $(SRC_DIR)/$(TARGET_NAME).o
-OBJS			+= $(SRC_DIR)/bootloader.o
-OBJS			+= $(SRC_DIR)/timer.o
 OBJS			+= $(SHARED_SRC_DIR)/core/system.o
 OBJS			+= $(SHARED_SRC_DIR)/core/uart.o
 
@@ -96,6 +93,7 @@ print-%:
 %.bin: %.elf
 	@printf "  OBJCOPY $@\n"
 	$(Q)$(OBJCOPY) -Obinary $< $@
+	$(Q)python pad_bootloader.py
 
 %.hex: %.elf
 	@printf "  OBJCOPY $@\n"
@@ -117,14 +115,6 @@ $(OPENCM3_DIR)/lib/lib$(LIBNAME).a:
 	@printf "  LD      $@\n"
 	$(Q)$(LD) $(LDFLAGS) $(OBJS) $(LDLIBS) -o $@
 
-$(BOOTLOADER_DIR)/bootloader.bin:
-	$(warning $@ not found, attempting to rebuild in $(BOOTLOADER_DIR))
-	$(MAKE) -C $(BOOTLOADER_DIR)
-
-$(SRC_DIR)/bootloader.o: $(SRC_DIR)/bootloader.S $(BOOTLOADER_DIR)/bootloader.bin
-	@printf "  CC      $<\n"
-	$(Q)$(CC) $(CFLAGS) -o $@ -c $<
-
 %.o: %.c
 	@printf "  CC      $<\n"
 	$(Q)$(CC) $(CFLAGS) -o $@ -c $<
@@ -143,7 +133,6 @@ $(SRC_DIR)/bootloader.o: $(SRC_DIR)/bootloader.S $(BOOTLOADER_DIR)/bootloader.bi
 
 clean:
 	$(Q)$(RM) -rf $(TARGET_NAME).* generated.* $(OBJS) $(OBJS:%.o=%.d)
-	$(Q)$(MAKE) -C $(BOOTLOADER_DIR) clean
 
 .PHONY: all clean images
 

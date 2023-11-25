@@ -6,6 +6,7 @@
 #define CPU_FREQ 84000000
 #define SYSTICK_FREQ 1000
 
+void sys_tick_handler(void);
 void system_setup(void);
 uint64_t system_get_ticks(void);
 

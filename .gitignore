@@ -5,5 +5,5 @@
 *.elf
 *.hex
 *.srec
+*.map
 generated.*.ld
-

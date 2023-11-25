@@ -9,6 +9,9 @@
         "uart.h": "c",
         "my-uart.h": "c",
         "usart.h": "c",
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "timer.h": "c",
+        "timer_common_f24.h": "c",
+        "timer_common_all.h": "c"
     }
 }
