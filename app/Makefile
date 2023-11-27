@@ -37,6 +37,7 @@ OBJS			+= $(SRC_DIR)/bootloader.o
 OBJS			+= $(SRC_DIR)/timer.o
 OBJS			+= $(SHARED_SRC_DIR)/core/system.o
 OBJS			+= $(SHARED_SRC_DIR)/core/uart.o
+OBJS			+= $(SHARED_SRC_DIR)/core/ring-buffer.o
 
 # Common C and C++ flags
 OPT				:= -Os

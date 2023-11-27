@@ -37,25 +37,28 @@ int main(void) {
   uart_setup();
   timer_setup();
 
-  uint64_t tick = system_get_ticks();
+  uint64_t current_tick = system_get_ticks();
   float duty_cycle = 0.0f;
 
   while (1) {
-    if (system_get_ticks() - tick >= 10) {
+    if (system_get_ticks() - current_tick >= 10) {
       if (duty_cycle > 100.0f) {
         duty_cycle = 0.0f;
       }
       timer_pwm_set_duty_cycle(duty_cycle);
 
       duty_cycle += 1.0f;
-      tick = system_get_ticks();
+      current_tick = system_get_ticks();
     }
 
-    if (uart_data_available()) {
+    while (uart_data_available()) {
       uint8_t data = uart_read_byte();
       uart_write_byte(data - 1);
     }
+
+    system_delay(100);
   }
+
 
   return 0;
 }

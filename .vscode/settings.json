@@ -12,6 +12,8 @@
         "stdbool.h": "c",
         "timer.h": "c",
         "timer_common_f24.h": "c",
-        "timer_common_all.h": "c"
+        "timer_common_all.h": "c",
+        "system.h": "c",
+        "systick.h": "c"
     }
 }
